@@ -6,6 +6,8 @@
 Assets/Asset*
 Assets/Synty*
 Assets/Terrain*
+Assets/Animation*
+Assets/POLYGON*
 
 # Visual Studio cache directory
 .vs/

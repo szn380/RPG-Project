@@ -18,10 +18,12 @@ public class Mover : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))   // if left mouse button clicked
+        // if (Input.GetMouseButtonDown(0))   // move when left mouse button clicked
+        if (Input.GetMouseButton(0))   // move when left mouse button is held down
         {
             MoveToCursor();
         }
+        UpdateAnimator();
     }
 
     private void MoveToCursor() 
@@ -36,5 +38,18 @@ public class Mover : MonoBehaviour
             NavMeshAgent agent = GetComponent<NavMeshAgent>(); 
             agent.destination = hit.point;
         }
+    }
+
+    private void UpdateAnimator()
+    {
+        // Get global velocity from Nav Mesh Agent
+        // Convert it to local velocity of the character (InverseTransformDirection())
+        //    local velocity is from the rotational orientation of the character
+        // Pass local speed into value of blend tree
+
+        Vector3 velocity = GetComponent<NavMeshAgent>().velocity;
+        Vector3 localVelocity = transform.InverseTransformDirection(velocity);
+        float speed = localVelocity.z;
+        GetComponent<Animator>().SetFloat("forwardSpeed", speed);
     }
 }
